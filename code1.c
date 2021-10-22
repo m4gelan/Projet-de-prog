@@ -2,6 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 int main(){
-printf("tom niquee ta mere");
+printf("tom nique ta mere");
 printf(" vraiment");
 }
