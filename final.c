@@ -44,6 +44,7 @@ int d_calculator(double value_Op, int T, double f, double n, double ord){
 		if (fabs(func - value_Op) < epsilon){
 			epsilon = fabs(func - value_Op);
 			temp = i;
+
 		}
 	}
 	return temp;
