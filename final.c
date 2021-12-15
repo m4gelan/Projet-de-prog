@@ -31,24 +31,22 @@ double origine_c(double min, double max){
 }
 
 
-int d_calculator(double value_Op, int T, double f, double n, double ord){
-	int d = 0;
-	int temp = 0;
-	for (int i = 0; i < T; i++) {
-		double func = cos(f*i)*n + ord;
-		if (fabs(func - value_Op) < 0.000001){
-			temp = i;
-			if (d < temp){
-				d = temp;
-			}
-		}
-	}
-	return d;
-}
-
 double p_func(int i, double freq, double norme, double origine, int d_value){
 	double p_func = cos((i+d_value)*freq)*norme + origine;
 	return p_func;
+}
+
+int d_calculator(double value_Op, int T, double f, double n, double ord){
+	double epsilon = 0.1;
+	int temp = 0;
+	for (int i = 0; i < T; i++) {
+		double func = p_func(i, f, n, ord, 0);
+		if (fabs(func - value_Op) < epsilon){
+			epsilon = fabs(func - value_Op);
+			temp = i;
+		}
+	}
+	return temp;
 }
 
 
@@ -60,7 +58,7 @@ static PyObject * simulation(PyObject * self, PyObject * args){
 	double precession;
 	int annees;
   //structure ses morts
-  struct Parameter e = {0.0034, 0.0580, 413000, freq_c(e.T), norme_c(e.min, e.max), origine_c(e.min, e.max)};
+  struct Parameter e = {0.0034, 0.0580, 413, freq_c(e.T), norme_c(e.min, e.max), origine_c(e.min, e.max)};
 	struct Parameter B = {0.38222711, 0.42760567, 41000, freq_c(B.T), norme_c(B.min, B.max), origine_c(B.min, B.max)};
 	struct Parameter L = {0.0, 6.28319, 25920 , freq_c(L.T), norme_c(L.min, L.max), origine_c(L.min, L.max)};
  // calculateur
